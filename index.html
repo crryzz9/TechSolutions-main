@@ -500,7 +500,7 @@ solucions implantades
       </p>
     </div>
     <div class="container">
-      <form action="https://formspree.io/f/xpwdovep" method="POST">
+      <form action="https://formspree.io/f/xpwdovep" method="POST" id="Form">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputName4">Nom</label>
@@ -536,10 +536,45 @@ solucions implantades
     </div>
 
     <div class="d-flex justify-content-center">
-      <button type="submit" class="">Send</button>
+      <button type="submit" class="">Enviar</button>
     </div>
     </form>
     
+    <script>
+  const form = document.getElementById("Form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const data = {
+      name: document.getElementById("inputName4").value,
+      email: document.getElementById("inputEmail4").value,
+      phone: document.getElementById("inputNumber4").value,
+      service: document.getElementById("inputState").value,
+      message: document.getElementById("inputMessage").value
+    };
+
+    fetch("https://formspree.io/f/xpwdovep", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (res.ok) {
+        alert("Missatge enviat correctament!");
+        form.reset();
+      } else {
+        alert("Hi ha hagut un error en enviar el missatge.");
+      }
+    })
+    .catch(error => {
+      alert("Error de xarxa: " + error.message);
+    });
+  });
+</script>
+
   </section>
 
 
